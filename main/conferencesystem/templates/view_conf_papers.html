@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %} {{conference}} - View Papers {% endblock %}
+
+{% block content %}
+  <h1>Submitted Papers</h1>
+  {% for track, papers in papers_by_track.items %}
+    <h2>Track: {{ track.title }}</h2>
+    <ul>
+      {% if papers %}
+        {% for paper in papers %}
+          <li><a href="{% url 'conferencesystem:paper_detail' paper_id=paper.id %}">{{ paper.title }}</a></li>
+        {% endfor %}
+      {% else %}
+        <p>No papers for track.</p>
+      {% endif %}
+    </ul>
+  {% endfor %}
+{% endblock %}

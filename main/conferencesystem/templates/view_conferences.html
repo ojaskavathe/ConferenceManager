@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}View Conferences - KJSIT Conference Management System{% endblock %}
+
+{% block content %}
+    <h2>Conferences</h2>
+    {% if conferences %}
+        <ul>
+            {% for conference in conferences %}
+                <li><a href="{% url 'conferencesystem:conference_details' conference.id %}">{{ conference.title }}</a></li>
+                <!-- Display other conference details as needed -->
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No conferences available at the moment.</p>
+    {% endif %}
+{% endblock %}

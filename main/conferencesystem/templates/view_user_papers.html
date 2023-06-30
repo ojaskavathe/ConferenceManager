@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %} {{user.username}} - View Contributions {% endblock %}
+
+{% block content %}
+  <h1>Your Contributions</h1>
+  {% if papers %}
+    <ul>
+      {% for paper in papers %}
+        <li><a href="{% url 'conferencesystem:paper_detail' paper_id=paper.id %}">{{ paper.conference }} - {{ paper.track }} - {{ paper.title }}</a></li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No contributions found.</p>
+  {% endif %}
+{% endblock %}

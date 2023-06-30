@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %} {{conference}} - View Details {% endblock %}
+
+{% block content %}
+  <h1>Title: {{ conference.title }}</h1>
+  <p><b>Description:</b> {{ conference.description }}</p>
+  <b>Tracks:</b> 
+  <ul>
+    {% for track in conference.track_set.all %}
+      <li>{{ track }}</li>
+    {% endfor %}
+  </ul>
+
+  {% if user.is_authenticated %}
+    {% if user_is_program_chair %}
+      <p>You are a program chair for this conference.</p>
+    {% endif %}
+    
+    <ul>
+    {% if submissions_open %}
+      <li><a href="{% url 'conferencesystem:submit_paper' conference_id=conference.id %}" class="btn btn-primary">Submit Paper</a></li>
+      {% if user_is_program_chair %}
+        <li><a href="{% url 'conferencesystem:view_conf_papers' conference_id=conference.id %}" class="btn btn-primary">View Papers</a></li>
+      {% endif %}
+    {% endif %}
+    </ul>
+  {% endif %}
+{% endblock %}

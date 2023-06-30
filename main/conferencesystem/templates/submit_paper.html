@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}form.conference.title - Submit Paper{% endblock %}
+
+{% block content %}
+    <h2>{{ form.conference.title }}: Submit Paper</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+{% endblock %}

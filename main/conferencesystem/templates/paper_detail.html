@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}Paper Detail - Conference Management System{% endblock %}
+
+{% block content %}
+  <h2>Paper Detail: {{ paper.title }}</h2>
+  <p><b>Conference:</b> {{ paper.conference }}</p>
+  <p><b>Track:</b> {{ paper.track }}</p>
+  <p><b>Abstract:</b> {{ paper.abstract }}</p>
+  <p><b>Content:</b> 
+    {% if paper.file %}
+      <a href="{% url 'conferencesystem:download_paper' paper_id=paper.id %}" download>Download File</a>
+    {% endif %}
+  </p>
+  <p><b>Authors:</b></p>
+  <ul>
+    {% for author in paper.authors.all %}
+      <li>{{ author.user.username }}</li>
+    {% endfor %}
+  </ul>
+  <p><b>Status:</b> {{ paper.get_status_display }}</p>
+
+  {% if user_is_program_chair and submissions_open %}
+    <a href="{% url 'conferencesystem:add_reviewers' paper_id=paper.id %}" class="btn btn-primary">Add Reviewer</a>
+  {% endif %}
+  {% if user_is_reviewer %}
+    <p>You are assigned to this paper as a reviewer.</p>
+    <a href="{% url 'conferencesystem:review_paper' paper_id=paper.id %}" class="btn btn-primary">
+      {% if review_exists %}
+        Edit Review
+      {% else %}
+        Review Paper
+      {% endif %}
+    </a>
+  {% endif %}
+
+{% endblock %}

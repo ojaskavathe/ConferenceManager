@@ -1,0 +1,42 @@
+<!-- base.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}KJSIT Conference Management System{% endblock %}</title>
+    <!-- Add your CSS and JS files here -->
+</head>
+<body>
+    <header>
+        <!-- Add your header content here -->
+        <h1>KJSIT Conference Management System</h1>
+    </header>
+
+    <nav>
+        <!-- Add your navigation links here -->
+        <ul>
+            <li><a href="{% url 'conferencesystem:index' %}">Home</a></li>
+            <li><a href="{% url 'conferencesystem:conferences' %}">Conferences</a></li>
+            {% if user.is_authenticated %}
+                <li><a href="{% url 'conferencesystem:profile' %}">Profile</a></li>
+                <li><a href="{% url 'conferencesystem:view_user_papers' %}">Your Contributions</a></li>
+                <li><a href="{% url 'conferencesystem:logout' %}">Log Out</a></li>
+            {% else %}
+                <li><a href="{% url 'conferencesystem:login' %}">Log In</a></li>
+                <li><a href="{% url 'conferencesystem:signup' %}">Sign Up</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+
+    <main>
+        {% block content %}
+        <!-- Content for each page will go here -->
+        {% endblock %}
+    </main>
+
+    <footer>
+        <!-- Add your footer content here -->
+        <p>&copy; 2023 KJSIT Conference Management System. All rights reserved.</p>
+    </footer>
+</body>
+</html>
