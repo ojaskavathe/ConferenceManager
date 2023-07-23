@@ -1,19 +1,14 @@
-<!-- base.html -->
-
 <!DOCTYPE html>
 <html>
 <head>
     <title>{% block title %}KJSIT Conference Management System{% endblock %}</title>
-    <!-- Add your CSS and JS files here -->
 </head>
 <body>
     <header>
-        <!-- Add your header content here -->
         <h1>KJSIT Conference Management System</h1>
     </header>
 
     <nav>
-        <!-- Add your navigation links here -->
         <ul>
             <li><a href="{% url 'conferencesystem:index' %}">Home</a></li>
             <li><a href="{% url 'conferencesystem:conferences' %}">Conferences</a></li>
@@ -30,12 +25,11 @@
 
     <main>
         {% block content %}
-        <!-- Content for each page will go here -->
+        <!-- Content -->
         {% endblock %}
     </main>
 
     <footer>
-        <!-- Add your footer content here -->
         <p>&copy; 2023 KJSIT Conference Management System. All rights reserved.</p>
     </footer>
 </body>

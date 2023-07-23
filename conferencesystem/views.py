@@ -1,5 +1,5 @@
 from .models import Conference, Paper, Author, Reviewer, Review
-from .forms import PaperSubmissionForm, ReviewForm
+from .forms import RegistrationForm, PaperSubmissionForm, ReviewForm
 
 from django.contrib.auth import login, logout
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
@@ -20,13 +20,13 @@ def conferences(request):
 
 def signup(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = RegistrationForm(request.POST)
         if form.is_valid():
             user = form.save()
             login(request, user)
             return redirect('conferencesystem:profile')
     else:
-        form = UserCreationForm()
+        form = RegistrationForm()
     return render(request, 'signup.html', {'form': form})
 
 def login_view(request):
