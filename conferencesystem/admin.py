@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as DjangoUserAdmin
+from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.utils.translation import gettext_lazy as _
 from .models import User, Conference, Track, Chair, Author, Reviewer, Paper, Review
 
@@ -29,11 +30,15 @@ class ConferenceAdminForm(forms.ModelForm):
     class Meta:
         model = Conference
         fields = '__all__'
+        widgets = {
+            'chairs': forms.ModelMultipleChoiceField,
+        }
+        
 
     chairs = forms.ModelMultipleChoiceField(
         queryset=User.objects.all(),
         required=False,
-        widget=forms.SelectMultiple(),
+        widget=FilteredSelectMultiple(verbose_name='Users', is_stacked=False),
     )
 
     def __init__(self, *args, **kwargs):

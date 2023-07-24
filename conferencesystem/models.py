@@ -60,6 +60,8 @@ class User(AbstractUser):
 
 class Conference(models.Model):
     title = models.CharField(max_length=255)
+    organizing_institute = models.CharField(max_length=255)
+    institute_details = models.TextField()
     description = models.TextField()
     start_date = models.DateField()
     end_date = models.DateField()
@@ -86,14 +88,14 @@ class Chair(models.Model):
     conferences = models.ManyToManyField(Conference)
     
     def __str__(self):
-        return self.user.username
+        return self.user.email
 
 class Author(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     conferences = models.ManyToManyField(Conference)
     
     def __str__(self):
-        return self.user.username
+        return self.user.email
 
 class Paper(models.Model):
     STATUS_CHOICES = [
@@ -125,7 +127,7 @@ class Reviewer(models.Model):
     papers = models.ManyToManyField(Paper)
 
     def __str__(self):
-        return self.user.username
+        return self.user.email
 
 class Review(models.Model):
     paper = models.ForeignKey(Paper, on_delete=models.CASCADE)
@@ -137,4 +139,4 @@ class Review(models.Model):
         unique_together = ['paper', 'reviewer']
 
     def __str__(self):
-        return f"Review for {self.paper.title} by {self.reviewer.user.username}"
+        return f"Review for {self.paper.title} by {self.reviewer.user.email}"
